@@ -10,9 +10,8 @@ export const TodoForm = (props) => {
     const [state, setState] = useState(item);
     const { category } = props;
 
-    const onAdd = (event) => {
-        event.preventDefault();
-    
+    const onAdd = () => {
+        if(state.text){
         const request = {
           text: state.text,
           id: null,
@@ -33,18 +32,19 @@ export const TodoForm = (props) => {
               setState({ text: "" });
               formRef.current.reset();
             });
+          }
         }
       
         const onEdit = (event) => {
           event.preventDefault();
       
+          if(state.text) {
           const request = {
             text: state.text,
             id: item.id,
             isCompleted: item.isCompleted,
             categoryDto: {id: category}
           };
-      
       
           fetch(HOST_API + "/todo", {
             method: "PUT",
@@ -60,6 +60,7 @@ export const TodoForm = (props) => {
               setState({ text: "" });
               formRef.current.reset();
             });
+          }
         }      
 
     return ( 
@@ -69,13 +70,14 @@ export const TodoForm = (props) => {
         className="form-control"
         type="text"
         name="text"
+        required="required"
         placeholder="¿Qué piensas hacer hoy?"
         defaultValue={item.idCategory === category ? item.text : ''}
         onChange={(event) => {
             setState({ ...state, text: event.target.value })
         }}  ></input>
-        {item.id && item.idCategory === category && <button className="btn btn-outline-dark" id="button-addon1" onClick={onEdit}>Actualizar</button>}
-        {!item.id && item.idCategory !== category && <button className="btn btn-outline-dark" id="button-addon1" onClick={onAdd}>Crear</button>}
+        {item.id && item.idCategory === category && <button className="btn btn-outline-dark" id="button-addon1" type="submit" onClick={onEdit}>Actualizar</button>}
+        {!item.id && item.idCategory !== category && <button className="btn btn-outline-dark" id="button-addon1" type="submit" onClick={onAdd}>Crear</button>}
       </div>
     </form>
      );
