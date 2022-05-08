@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useState } from 'react';
-import { useForm } from '../useForm';
 import { Store } from '../StoreProvider';
 
 
@@ -10,10 +9,6 @@ export const CategoryForm = () => {
     const { dispatch, state: {category} } = useContext(Store);
     const item = category.item;
     const [state, setState] = useState(item);
-
-    const {title} = useForm({
-        title: ''
-    })
   
     const onAdd = (event) => {
   
@@ -50,15 +45,16 @@ export const CategoryForm = () => {
                   id='name'
                   required="required" 
                   placeholder="Lista de TO-DO"
-                  defaultValue={title}
+                  defaultValue={item.title}
                   onChange={(event) => {
                   setState({ ...state, title: event.target.value })
                   }} ></input>
             {!item.id &&
-              <button className="btn btn-outline-primary" type="submit" onClick={() => { onAdd();  }}>
+              <button className="btn btn-dark" type="submit"  onClick={() => { onAdd();  }}>
                 Nueva Lista
               </button>}
           </div>
+          <br/>
         </form>
     );
 }

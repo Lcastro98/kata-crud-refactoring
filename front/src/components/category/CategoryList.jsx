@@ -21,25 +21,24 @@ export const CategoryList = () => {
     const onDelete = (id) => {
       fetch(HOST_API + "/category/" + id, {
         method: "DELETE"
-      }).then((list) => {
+      }).then(() => {
         dispatch({ type: "delete-category", id })
       })
       };
     
       return ( 
-          <div className="container"> <br/>
+          <div id="principal-div" className="card p-3"> 
               {currentList.map((category) => {
                   return (
-                    <div>
-                    <br />
-                    <div className="card-header"> 
+                    <div id="second-div" key={category.id} className='card p-3'> 
+                    <div id="header-div" key={category} className="card-header"> 
                         {category.title === null ? '' : category.title.toUpperCase() }
-                        <button className="btn-close" onClick={() => onDelete(category.id)}>
+                        <button id="btn-delete-cat" className="btn-close" onClick={() => onDelete(category.id)}>
                         </button>
                     <br />
                     </div>
-                    <TodoForm />
-                    <TodoList />
+                    <TodoForm category={category.id}/>
+                    <TodoList category={category.id}/>
                     <br />
                     </div>
                   )
