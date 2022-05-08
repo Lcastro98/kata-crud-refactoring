@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class CrudApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CrudApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CrudApplication.class, args);
+    }
 
-	@Bean
-	public SingleModelMapper singleModelMapper(){
-		return new SingleModelMapper();
-	}
+    @Bean
+    public SingleModelMapper singleModelMapper() {
+        return new SingleModelMapper();
+    }
 }

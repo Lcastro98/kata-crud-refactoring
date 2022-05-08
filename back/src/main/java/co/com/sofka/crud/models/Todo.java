@@ -17,30 +17,50 @@ import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 
+/**
+ * Entidad de los todo
+ *
+ * @author Lorena Castro <Lcastro0398@gmail.com>
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name="todo")
+@Table(name = "todo")
 public class Todo {
+
+    /**
+     * Identificador de la tupla
+     */
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(unique=true, nullable=false, name="todo_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false, name = "todo_id")
     private Long id;
 
-    @Column(name="todo_text")
+    /**
+     * Texto del todo
+     */
+    @Column(name = "todo_text")
     private String text;
 
-    @Column(name="todo_completed")
+    /**
+     * Estado del todo
+     */
+    @Column(name = "todo_completed")
     private boolean completed;
 
+    /**
+     * Punto de enlace entre la entidad Todo y Categoría
+     * (una categoría puede tener muchos todos)
+     */
     @ManyToOne(
             fetch = FetchType.LAZY,
-            targetEntity = Category.class,
-            optional = false)
-    @JoinColumn(name="category")
+            targetEntity = Category.class)
+    @JoinColumn(name = "category")
     @JsonBackReference
     private Category category;
 
