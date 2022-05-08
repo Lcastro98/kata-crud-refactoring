@@ -1,15 +1,14 @@
 import React, { useState, useContext, useRef } from 'react';
-//import { useForm } from '../../useForm';
 import { Store } from '../StoreProvider';
 
 const HOST_API = "http://localhost:8080/api";
 
-const TodoForm = () => {
+export const TodoForm = (props) => {
     const formRef = useRef(null);
     const { dispatch, state: { todo } } = useContext(Store);
     const item = todo.item;
     const [state, setState] = useState(item);
-
+    const { category } = props;
 
     const onAdd = (event) => {
         event.preventDefault();
@@ -18,7 +17,7 @@ const TodoForm = () => {
           text: state.text,
           id: null,
           completed: false,
-          category: state.category
+          categoryDto: {id: category}
         };
         fetch(HOST_API + "/todo", {
             method: "POST",
@@ -29,7 +28,8 @@ const TodoForm = () => {
           })
             .then(response => response.json())
             .then((todo) => {
-              dispatch({ type: "add-item", item: todo });
+              let t = {...todo, idCategory: category}
+              dispatch({ type: "add-item-todo", item: t });
               setState({ text: "" });
               formRef.current.reset();
             });
@@ -42,7 +42,7 @@ const TodoForm = () => {
             text: state.text,
             id: item.id,
             isCompleted: item.isCompleted,
-            category: item.category
+            categoryDto: {id: category}
           };
       
       
@@ -55,7 +55,8 @@ const TodoForm = () => {
           })
             .then(response => response.json())
             .then((todo) => {
-              dispatch({ type: "update-item-todo", item: todo });
+              let t = {...todo, idCategory: category}
+              dispatch({ type: "update-item-todo", item: t });
               setState({ text: "" });
               formRef.current.reset();
             });
@@ -63,18 +64,18 @@ const TodoForm = () => {
 
     return ( 
     <form ref={formRef}>
-      <div class="input-group mb-3">
+      <div className="input-group mb-3">
         <input
         className="form-control"
         type="text"
         name="text"
         placeholder="¿Qué piensas hacer hoy?"
-        defaultValue={item.text}
+        defaultValue={item.idCategory === category ? item.text : ''}
         onChange={(event) => {
             setState({ ...state, text: event.target.value })
         }}  ></input>
-        {item.id && <button className="btn btn-outline-primary" id="button-addon1" onClick={onEdit}>Actualizar</button>}
-        {!item.id && <button className="btn btn-outline-primary" id="button-addon1" onClick={onAdd}>Crear</button>}
+        {item.id && item.idCategory === category && <button className="btn btn-outline-dark" id="button-addon1" onClick={onEdit}>Actualizar</button>}
+        {!item.id && item.idCategory !== category && <button className="btn btn-outline-dark" id="button-addon1" onClick={onAdd}>Crear</button>}
       </div>
     </form>
      );
