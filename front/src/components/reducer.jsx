@@ -1,7 +1,7 @@
 function reducer(state, action) {
     switch (action.type) {
         case 'add-category': 
-            const categoryUp = state.todo.list;
+            const categoryUp = state.category.list;
             categoryUp.push(action.item);
             return { ...state, category: {list: categoryUp, item: {}} };
         case 'update-categories':
