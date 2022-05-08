@@ -3,6 +3,14 @@ import { Store } from "../StoreProvider";
 
 const HOST_API = "http://localhost:8080/api";
 
+/**
+ * Contiene todo lo relacionado con el formulario de Categorías
+ *
+ * @returns
+ * @version 1.0.0
+ * @author Lorena Castro <Lcastro0398@gmail.com>
+ * @since 1.0.0
+ */
 export const CategoryForm = () => {
   const formRef = useRef(null);
   const {
@@ -12,8 +20,14 @@ export const CategoryForm = () => {
   const item = category.item;
   const [state, setState] = useState(item);
 
+  /**
+   * Permite agegar Categorías
+   *
+   * @author Lorena Castro <Lcastro0398@gmail.com>
+   * @since 1.0.0
+   */
   const onAdd = () => {
-      if(state.title){
+    if (state.title) {
       const request = {
         title: state.title,
         id: null,
@@ -32,9 +46,15 @@ export const CategoryForm = () => {
           setState({ title: "" });
           formRef.current.reset();
         });
-      }
+    }
   };
 
+  /**
+   * Muestra el formulario para agregar categorías
+   *
+   * @author Lorena Castro <Lcastro0398@gmail.com>
+   * @since 1.0.0
+   */
   return (
     <form className="container" ref={formRef}>
       <br></br>

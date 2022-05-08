@@ -3,6 +3,15 @@ import { Store } from "../StoreProvider";
 
 const HOST_API = "http://localhost:8080/api";
 
+/**
+ * Permite mostrar los TODOs correspondientes de cada categoría
+ *
+ * @param {*} props
+ * @returns
+ * @version 1.0.0
+ * @author Lorena Castro <Lcastro0398@gmail.com>
+ * @since 1.0.0
+ */
 const TodoList = (props) => {
   const { category } = props;
   const {
@@ -15,36 +24,58 @@ const TodoList = (props) => {
     fetch(HOST_API + "/categories")
       .then((response) => response.json())
       .then((lista) => {
-        let list = []
+        let list = [];
         lista.forEach((c) => {
           c.todo.map((t) => {
-            list.push({ ...t, idCategory: c.id })
-            return t
+            list.push({ ...t, idCategory: c.id });
+            return t;
           });
         });
         dispatch({ type: "update-list-todo", list });
       });
   }, [dispatch]);
 
+  /**
+   * Permite eliminar los todos
+   *
+   * @param {Long} id
+   * @author Lorena Castro <Lcastro0398@gmail.com>
+   * @since 1.0.0
+   */
   const onDelete = (id) => {
     fetch(HOST_API + "/" + id + "/todo", {
       method: "DELETE",
-    }).then((list) => {
+    }).then(() => {
       dispatch({ type: "delete-item-todo", id });
     });
   };
 
+  /**
+   * Permite editar los todos
+   *
+   * @param todo
+   * @author Lorena Castro <Lcastro0398@gmail.com>
+   * @since 1.0.0
+   */
   const onEdit = (todo) => {
-    let t = {...todo, idCategory: category}
+    let t = { ...todo, idCategory: category };
     dispatch({ type: "edit-item-todo", item: t });
   };
 
+  /**
+   * Permite modificar el estado del todo (completado o no)
+   *
+   * @param event
+   * @param todo
+   * @author Lorena Castro <Lcastro0398@gmail.com>
+   * @since 1.0.0
+   */
   const onChange = (event, todo) => {
     const request = {
       text: todo.text,
       id: todo.id,
       completed: event.target.checked,
-      categoryDto: {id: category}
+      categoryDto: { id: category },
     };
     fetch(HOST_API + "/todo", {
       method: "PUT",
@@ -55,7 +86,7 @@ const TodoList = (props) => {
     })
       .then((response) => response.json())
       .then((todo) => {
-        let t = {...todo, idCategory: category}
+        let t = { ...todo, idCategory: category };
         dispatch({ type: "update-item-todo", item: t });
       });
   };
@@ -64,6 +95,13 @@ const TodoList = (props) => {
     textDecoration: "line-through",
   };
 
+  /**
+   * Muestra la lista de los todos creados de cada categoría
+   * Contiene los botones de editar y eliminar para cada todo
+   *
+   * @author Lorena Castro <Lcastro0398@gmail.com>
+   * @since 1.0.0
+   */
   return (
     <div className="container">
       <table className="table table-hover">
