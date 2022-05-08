@@ -2,15 +2,18 @@ import React from 'react';
 import StoreProvider from './components/StoreProvider';
 import { CategoryForm } from './components/category/CategoryForm';
 import { CategoryList } from './components/category/CategoryList';
+import Footer from './components/footer/Footer';
+import Header from './components/header/header';
 
 
 function App() {
 
   return( 
     <StoreProvider>
-      <h1 className="text-center">Dashboard</h1>
+      <Header />
       <CategoryForm />
       <CategoryList />
+      <Footer/>
     </StoreProvider>
     )
 }
