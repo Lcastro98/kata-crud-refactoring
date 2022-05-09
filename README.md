@@ -47,3 +47,18 @@ Realizar la siguiente representación donde se tiene TO-Do List agripado en list
 
 ![alt text]( ./todo-list-kata.gif "Demo funcional del ToDo List")
 
+---
+
+## Voilà
+
+![alt text](https://github.com/Lcastro98/kata-crud-refactoring/blob/master/front/public/Final.jpeg)
+
+## Vídeo 📹
+
+Puede ver el vídeo de la aplicación en el siguiente enlace:
+
+https://www.youtube.com/watch?v=VSMR-5EuJ7Y
+
+---
+⌨️ con ❤️ por [Lorena Castro](https://github.com/Lcastro98) ✌
+
