@@ -60,5 +60,5 @@ Puede ver el vídeo de la aplicación en el siguiente enlace:
 https://www.youtube.com/watch?v=VSMR-5EuJ7Y
 
 ---
-⌨️ con ❤️ por [Lorena Castro](https://github.com/Lcastro98) ✌
+⌨️ con ❤️ por [Lorena Castro](https://github.com/Lcastro98) ✌ con la guía de [Sofka](https://github.com/Sofka-XT)
 
